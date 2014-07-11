@@ -24,6 +24,10 @@
     var author = widget.getElementsByClassName('author')[0];
     var image = widget.querySelector('#img');
     var btnPlay = widget.querySelector('.btn-play');
+    var playOrStop = 0; //if 0 play, if 1 pause
+    var progress = widget.querySelector('progress');
+    //var songDuration = Math.floor(parseInt(response.duration));
+    var currenTime = 0; 
 
     /*step 1 change title and artist and image*/
     title.textContent = response.name;
@@ -33,7 +37,24 @@
     /*step 2 load mp3 in <audio>*/
     audio.src=response.preview_url;
     btnPlay.addEventListener('click', function (evt){
-      audio.play();
+    /*step 3 play and stop*/ 
+      if (playOrStop){
+         audio.pause();
+         playOrStop = 0;
+      }else{
+         audio.play();
+         playOrStop = 1;
+         
+      }
+     
+    });
+
+    audio.addEventListener('progress', function (evt){
+      
+      var songDuration = Math.floor(audio.duration);
+      progress.max = songDuration;
+      progress.value = Math.round(audio.currentTime);
+      console.log (audio.currentTime);
     });
 
   }
