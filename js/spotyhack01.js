@@ -41,14 +41,16 @@
       if (playOrStop){
          audio.pause();
          playOrStop = 0;
+         btnPlay.classList.add('playing');
       }else{
          audio.play();
          playOrStop = 1;
+         btnPlay.classList.remove('playing');
          
       }
      
     });
-
+    /*step 4 currentTime */
     audio.addEventListener('timeupdate', function (evt){
       
       var songDuration = Math.floor(audio.duration);
