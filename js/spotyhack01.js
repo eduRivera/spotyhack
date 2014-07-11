@@ -49,7 +49,7 @@
      
     });
 
-    audio.addEventListener('progress', function (evt){
+    audio.addEventListener('timeupdate', function (evt){
       
       var songDuration = Math.floor(audio.duration);
       progress.max = songDuration;
