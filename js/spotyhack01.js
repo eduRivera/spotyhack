@@ -2,19 +2,26 @@
 
 	'use strict';
 
-  var xhr = new XMLHttpRequest();
-	xhr.open('GET', 'https://api.spotify.com/v1/tracks/7Bxv0WL7UC6WwQpk9TzdMJ');
-  
+  var urlSong;
+  var formSubmit = document.querySelector('#formUrl');
   var response;
-	xhr.onload = function () {
-    if (this.status === 200) { // the result is OK
-      response = JSON.parse(this.response);
-      console.log('onload response', response);
+	
+  var getTrack = function(){
 
-    }
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://api.spotify.com/v1/tracks/7Bxv0WL7UC6WwQpk9TzdMJ');
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.onload = function () {
+      if (this.status === 200) { // the result is OK
+          response = JSON.parse(this.response);
+          console.log('onload response', response);
+      }
     loadcontent();
-     
+    
+    };
+    xhr.send();
   };
+  getTrack();
 
   var loadcontent = function(){
 
@@ -28,6 +35,7 @@
     var progress = widget.querySelector('progress');
     //var songDuration = Math.floor(parseInt(response.duration));
     var currenTime = 0; 
+  
 
     /*step 1 change title and artist and image*/
     title.textContent = response.name;
@@ -50,19 +58,31 @@
       }
      
     });
+   
+ 
+    
     /*step 4 currentTime */
     audio.addEventListener('timeupdate', function (evt){
-      
       var songDuration = Math.floor(audio.duration);
       progress.max = songDuration;
       progress.value = Math.round(audio.currentTime);
       console.log (audio.currentTime);
     });
 
-  }
+  };
+
+  
+
+  formSubmit.addEventListener('submit', function (event){
+       event.preventDefault();
+       var urlSongObject = document.querySelector('#urlSong');
+       urlSong = urlSongObject.value;
+       
+       getTrack(urlSong);
+       
+    });  
 
 
   // send the request
-  xhr.send();
 
 })(window);
