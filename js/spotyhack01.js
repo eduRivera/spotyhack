@@ -49,11 +49,11 @@
       if (playOrStop){
          audio.pause();
          playOrStop = 0;
-         btnPlay.classList.add('playing');
+         btnPlay.classList.remove('playing');
       }else{
          audio.play();
          playOrStop = 1;
-         btnPlay.classList.remove('playing');
+         btnPlay.classList.add('playing');
          
       }
      
