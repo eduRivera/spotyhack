@@ -26,11 +26,10 @@
 
   getTrack('https://api.spotify.com/v1/tracks/7Bxv0WL7UC6WwQpk9TzdMJ');
 
-  var urltransformation= function(url){
+  var UriToUrl= function(url){
     var urlarray=url.split(':');
-    alert(urlarray);
     var newUrl='https://api.spotify.com/v1/tracks/'+ urlarray[2];
-    alert(newUrl);
+    return newUrl;
   }
 
   var loadcontent = function(){
@@ -80,8 +79,8 @@
     evt.preventDefault();
     var urlSongObject = document.querySelector('#urlSong');
     urlSong = urlSongObject.value;
-    alert(urlSong)
-    getTrack('https://api.spotify.com/v1/tracks/07hVrBVslg9c4R2Zadv57r');
+    urlSong = UriToUrl(urlSong);
+    getTrack(urlSong);
   });
 
 
